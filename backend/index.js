@@ -1,6 +1,8 @@
 import app from './server.js' 
 import mongodb from "mongodb" 
 import dotenv from "dotenv"
+import MoviesDAO from './dao/moviesDAO.js'
+
 async function main(){ 
   dotenv.config()
   const client = new mongodb.MongoClient(
@@ -12,6 +14,7 @@ try {
   console.log("start here")
   console.log(process.env.MOVIEREVIEWS_DB_URI)
   await client.connect()
+  await MoviesDAO.injectDB(client)
   console.log("got here")
   app.listen(port, () =>{
     console.log('server is running on port:'+port);
